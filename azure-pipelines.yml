@@ -1,0 +1,25 @@
+trigger:
+- main  # Change to your target branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use an agent with Bash and Azure CLI pre-installed
+
+variables:
+  AZURE_SUBSCRIPTION: '<your-azure-subscription-name>'  # Update this with your Azure subscription
+  SCRIPT_PATH: './account-nodered-deploy.sh'
+
+stages:
+- stage: Deploy
+  jobs:
+  - job: RunShellScript
+    steps:
+    - checkout: self  # Checkout the repository
+
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: $(AZURE_SUBSCRIPTION)
+        scriptType: 'bash'
+        scriptLocation: 'scriptPath'
+        scriptPath: $(SCRIPT_PATH)
+      displayName: 'Run Deployment Script'
+
