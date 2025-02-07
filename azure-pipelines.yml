@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'  # Use an agent with Bash and Azure CLI pre-installed
 
 variables:
-  AZURE_SUBSCRIPTION: '<your-azure-subscription-name>'  # Update this with your Azure subscription
+  AZURE_SUBSCRIPTION: 'Azure subscription 1'  # Update this with your Azure subscription
   SCRIPT_PATH: './account-nodered-deploy.sh'
 
 stages:
