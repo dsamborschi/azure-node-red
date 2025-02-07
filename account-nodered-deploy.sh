@@ -1,10 +1,11 @@
 #!/bin/bash
 
 CUSTOMER=$1
+ROOT_RESOURCE_GROUP="iotistic-node-red-group"
 RESOURCE_GROUP="${CUSTOMER}-iotistic-node-red-group"
 LOCATION="canadacentral"
 PLAN="iotistic-node-red-plan"
-STORAGE_ACCOUNT="${CUSTOMER}noderedstorage"
+STORAGE_ACCOUNT="noderedstorage"
 DOCKER_IMAGE="nodered/node-red:4.0"
 SHARE_NAME="${CUSTOMER}-node-red-share"
 VOLUME_NAME="${CUSTOMER}-node-red-volume"
@@ -31,10 +32,10 @@ fi
 
 # Check if the storage account exists
 
-az storage account show --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP &> /dev/null
+az storage account show --name $STORAGE_ACCOUNT --resource-group $ROOT_RESOURCE_GROUP &> /dev/null
 if [ $? -ne 0 ]; then
     echo "Storage account '$STORAGE_ACCOUNT' does not exist. Creating it..."
-    az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --location $LOCATION --sku Standard_LRS
+    az storage account create --name $STORAGE_ACCOUNT --resource-group $ROOT_RESOURCE_GROUP --location $LOCATION --sku Standard_LRS
 else
     echo "Storage account '$STORAGE_ACCOUNT' already exists."
 fi
