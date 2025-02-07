@@ -23,7 +23,7 @@ stages:
       inputs:
         azureSubscription: $(AZURE_SUBSCRIPTION)
         scriptType: 'bash'
-        scriptLocation: 'scriptPath'
+        scriptLocation: 'inlineScript'
         inlineScript: |
           bash $(SCRIPT_PATH) ${{ parameters.customer }}
       displayName: 'Run Deployment Script'
