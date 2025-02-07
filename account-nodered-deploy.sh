@@ -38,6 +38,7 @@ if [ -z "$EXISTING_ACCOUNT_RG" ]; then
     az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --location $LOCATION --sku Standard_LRS
 else
     echo "Storage account '$STORAGE_ACCOUNT' already exists in resource group '$EXISTING_ACCOUNT_RG'."
+fi
 
 # Get the storage account key
 STORAGE_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query [0].value -o tsv)
