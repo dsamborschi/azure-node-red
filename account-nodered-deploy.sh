@@ -41,7 +41,7 @@ else
 fi
 
 # Get the storage account key
-STORAGE_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query [0].value -o tsv)
+STORAGE_KEY=$(az storage account keys list --resource-group $ROOT_RESOURCE_GROUP --account-name $STORAGE_ACCOUNT --query [0].value -o tsv)
 
 # Check if the storage key was retrieved successfully
 if [ -z "$STORAGE_KEY" ]; then
