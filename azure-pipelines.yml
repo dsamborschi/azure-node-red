@@ -3,6 +3,11 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'  # Use an agent with Bash and Azure CLI pre-installed
+  
+parameters:
+- name: customer
+  type: string
+  default: 'demo'  # Default value if not provided
 
 variables:
   SCRIPT_PATH: './account-nodered-deploy.sh'
@@ -19,6 +24,7 @@ stages:
         azureSubscription: $(AZURE_SUBSCRIPTION)
         scriptType: 'bash'
         scriptLocation: 'scriptPath'
-        scriptPath: $(SCRIPT_PATH)
+        inlineScript: |
+          bash $(SCRIPT_PATH) ${{ parameters.customer }}
       displayName: 'Run Deployment Script'
 
