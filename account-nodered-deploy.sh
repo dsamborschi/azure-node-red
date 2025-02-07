@@ -4,7 +4,7 @@ CUSTOMER=$1
 RESOURCE_GROUP="${CUSTOMER}-iotistic-node-red-group"
 LOCATION="canadacentral"
 PLAN="iotistic-node-red-plan"
-STORAGE_ACCOUNT="iotisticnoderedstorage"
+STORAGE_ACCOUNT="${CUSTOMER}-iotisticnoderedstorage"
 DOCKER_IMAGE="nodered/node-red:4.0"
 SHARE_NAME="${CUSTOMER}-node-red-share"
 VOLUME_NAME="${CUSTOMER}-node-red-volume"
@@ -29,15 +29,14 @@ else
     echo "App Service Plan '$PLAN' already exists."
 fi
 
+# Check if the storage account exists
 
-# Check if the storage account exists globally
-EXISTING_ACCOUNT_RG=$(az storage account list --query "[?name=='$STORAGE_ACCOUNT'].resourceGroup" -o tsv)
-
-if [ -z "$EXISTING_ACCOUNT_RG" ]; then
+az storage account show --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP &> /dev/null
+if [ $? -ne 0 ]; then
     echo "Storage account '$STORAGE_ACCOUNT' does not exist. Creating it..."
     az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --location $LOCATION --sku Standard_LRS
 else
-    echo "Storage account '$STORAGE_ACCOUNT' already exists in resource group '$EXISTING_ACCOUNT_RG'."
+    echo "Storage account '$STORAGE_ACCOUNT' already exists."
 fi
 
 # Get the storage account key
