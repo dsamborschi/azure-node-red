@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CUSTOMER="demo1"
+CUSTOMER=$1
 RESOURCE_GROUP="iotistic-node-red-group"
 LOCATION="canadacentral"
 PLAN="iotistic-node-red-plan"
