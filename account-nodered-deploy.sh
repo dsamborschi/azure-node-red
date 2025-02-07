@@ -1,17 +1,28 @@
 #!/bin/bash
 
-CUSTOMER=$1
-ROOT_RESOURCE_GROUP="iotistic-node-red-group"
-RESOURCE_GROUP="${CUSTOMER}-iotistic-node-red-group"
+# Global
+STORAGE_ACCOUNT="noderedstorage"
+ROOT_RESOURCE_GROUP="node-red-group"
+DOMAIN="iotistic.ca"
+HOSTNAME="${CUSTOMER}.${DOMAIN}"
 LOCATION="canadacentral"
-PLAN="iotistic-node-red-plan"
-STORAGE_ACCOUNT="iotisticnoderedstorage"
+
+# Customer specific
+CUSTOMER=$1
+RESOURCE_GROUP="${CUSTOMER}-node-red-group"
+PLAN="${CUSTOMER}-node-red-plan"
 DOCKER_IMAGE="nodered/node-red:4.0"
 SHARE_NAME="${CUSTOMER}-node-red-share"
 VOLUME_NAME="${CUSTOMER}-node-red-volume"
 APP_NAME="${CUSTOMER}-node-red-app"
-DOMAIN="iotistic.ca"
-HOSTNAME="${CUSTOMER}.${DOMAIN}"
+
+
+# Check if the app service plan exists
+if ! az appservice plan show --name $PLAN --resource-group $RESOURCE_GROUP &> /dev/null; then
+    az appservice plan create --name $PLAN --resource-group $RESOURCE_GROUP --sku B1 --is-linux
+else
+    echo "App Service Plan '$PLAN' already exists."
+fi
 
 
 # Check if the resource group exists
@@ -23,15 +34,7 @@ else
     az group create --name $RESOURCE_GROUP --location $LOCATION
 fi
 
-# Check if the app service plan exists
-if ! az appservice plan show --name $PLAN --resource-group $RESOURCE_GROUP &> /dev/null; then
-    az appservice plan create --name $PLAN --resource-group $RESOURCE_GROUP --sku B1 --is-linux
-else
-    echo "App Service Plan '$PLAN' already exists."
-fi
-
 # Check if the storage account exists
-
 az storage account show --name $STORAGE_ACCOUNT --resource-group $ROOT_RESOURCE_GROUP &> /dev/null
 if [ $? -ne 0 ]; then
     echo "Storage account '$STORAGE_ACCOUNT' does not exist. Creating it..."
@@ -67,8 +70,7 @@ az webapp config storage-account add \
   --access-key $STORAGE_KEY \
   --mount-path "/data"
 
-# Add Custom Domain
-# Run the command and capture both stdout and stderr
+# Add Custom Domain and run the command and capture both stdout and stderr
 error_message=$(az webapp config hostname add --resource-group $RESOURCE_GROUP --webapp-name "${APP_NAME}" --hostname "${HOSTNAME}" 2>&1)
 # Check if the command failed (if error_message contains "was not found")
 if echo "$error_message" | grep -q "was not found"; then
