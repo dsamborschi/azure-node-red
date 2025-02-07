@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Global
-STORAGE_ACCOUNT="noderedstorage"
+STORAGE_ACCOUNT="iotisticnoderedstorage"
 ROOT_RESOURCE_GROUP="node-red-group"
 DOMAIN="iotistic.ca"
 HOSTNAME="${CUSTOMER}.${DOMAIN}"
