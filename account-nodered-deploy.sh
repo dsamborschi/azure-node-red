@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CUSTOMER=$1
-RESOURCE_GROUP="iotistic-node-red-group"
+RESOURCE_GROUP="${CUSTOMER}-iotistic-node-red-group"
 LOCATION="canadacentral"
 PLAN="iotistic-node-red-plan"
 STORAGE_ACCOUNT="iotisticnoderedstorage"
