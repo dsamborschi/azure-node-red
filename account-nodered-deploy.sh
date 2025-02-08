@@ -17,13 +17,6 @@ VOLUME_NAME="${CUSTOMER}-node-red-volume"
 APP_NAME="${CUSTOMER}-node-red-app"
 
 
-# Check if the app service plan exists
-if ! az appservice plan show --name $PLAN --resource-group $RESOURCE_GROUP &> /dev/null; then
-    az appservice plan create --name $PLAN --resource-group $RESOURCE_GROUP --sku B1 --is-linux
-else
-    echo "App Service Plan '$PLAN' already exists."
-fi
-
 
 # Check if the resource group exists
 az group show --name $RESOURCE_GROUP &> /dev/null
@@ -55,6 +48,13 @@ fi
 
 # Create Azure File Share
 az storage share create --name "${SHARE_NAME}" --account-name $STORAGE_ACCOUNT --account-key $STORAGE_KEY
+
+# Check if the app service plan exists
+if ! az appservice plan show --name $PLAN --resource-group $RESOURCE_GROUP &> /dev/null; then
+    az appservice plan create --name $PLAN --resource-group $RESOURCE_GROUP --sku B1 --is-linux
+else
+    echo "App Service Plan '$PLAN' already exists."
+fi
 
 # Deploy Web App
 az webapp create --resource-group $RESOURCE_GROUP --plan $PLAN --name "${APP_NAME}" --deployment-container-image-name $DOCKER_IMAGE
