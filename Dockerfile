@@ -22,6 +22,3 @@ RUN chown -R root:node-red /usr/src/node-red/node_modules
 COPY src/data/package.json /data
 COPY src/data/settings.js /data/settings.js 
 COPY src/data/flows.json /data/flows.json
-
-# Copy custom nodes
-COPY src/nodes /data/nodes
