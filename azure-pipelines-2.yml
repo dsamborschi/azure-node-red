@@ -46,7 +46,7 @@ stages:
                 --cache-from type=local,src=/tmp/.buildx-cache \
                 --cache-to type=local,dest=/tmp/.buildx-cache \
                 --push \
-                -t dsamborschi42/zemfyre-node-red:latest \
-                -f ./nodered/Dockerfile .
+                -t dsamborschi42/iotistic-node-red:latest \
+                -f ./Dockerfile .
             displayName: 'Build and Push Docker Image'
 
