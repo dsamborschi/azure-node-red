@@ -19,9 +19,9 @@ WORKDIR /usr/src/node-red
 RUN chown -R root:node-red /usr/src/node-red/node_modules
 
 # Copy _your_ Node-RED project files into place
-COPY /src/data/package.json /data
-COPY /src/data/settings.js /data/settings.js 
-COPY /src/data/flows.json /data/flows.json
+COPY src/data/package.json /data
+COPY src/data/settings.js /data/settings.js 
+COPY src/data/flows.json /data/flows.json
 
 # Copy custom nodes
-COPY /src/nodes /data/nodes
+COPY src/nodes /data/nodes
