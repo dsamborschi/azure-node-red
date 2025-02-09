@@ -21,7 +21,7 @@ RUN npm ci
 WORKDIR /usr/src/node-red
 
 
-# Switch back to node-red userdoc
-USER node-red
+# # Switch back to node-red userdoc
+# USER node-red
 
 
