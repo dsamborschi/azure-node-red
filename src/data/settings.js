@@ -422,7 +422,7 @@ module.exports = {
             // scripts: [ "/absolute/path/to/custom/script/file", "/another/script/file"]
         },
         header: {
-            title: "  IOTistic Flow Editor<br/>",
+            title: "  Iotistic Flow Editor<br/>",
             image: null, // or null to remove image
             // url: "http://nodered.org" // optional url to make the header text/image a link to this url
         },
