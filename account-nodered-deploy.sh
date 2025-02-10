@@ -82,28 +82,3 @@ else
 
 fi
 
-# # Add TXT record to GoDaddy DNS ---SHIT, HAVE TO HAVE MORE THAN 20 DOMAINS TO USE GODADDY API
-# api_url="https://api.godaddy.com/v1/domains/${DOMAIN}/records/TXT"
-# txt_value="${verification_id}"
-# json_payload="[ { \"data\": \"$txt_value\", \"name\": \"_acme-challenge.${CUSTOMER}\", \"ttl\": 600 } ]"
-
-# response=$(curl -X PUT "$api_url" \
-#     -H "Authorization: sso-key $GODADDY_API_KEY:$GODADDY_API_SECRET" \
-#     -H "Content-Type: application/json" \
-#     -d "$json_payload")
-
-# echo "GoDaddy API response: $response"
-
-# # Wait for DNS propagation
-# echo "Waiting for DNS propagation (this can take up to 60 minutes)..."
-# sleep 600 # Sleep for 10 minutes 
-
-# # Check the status of the hostname/domain verification
-# hostname_status=$(az webapp config hostname show --resource-group $RESOURCE_GROUP --webapp-name "${APP_NAME}" --hostname "${HOSTNAME}" 2>&1)
-
-# # If the domain is verified, the status message will contain "hostname validation successful"
-# if echo "$hostname_status" | grep -q "hostname validation successful"; then
-#     echo "Domain '${HOSTNAME}' is successfully verified and linked."
-# else
-#     echo "Domain '${HOSTNAME}' is not verified yet. Please ensure the TXT record is correctly set in your DNS provider."
-# fi
