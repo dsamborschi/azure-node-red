@@ -11,7 +11,7 @@ parameters:
 
 variables:
   SCRIPT_PATH: './deploy-azure.sh'
-
+  AZURE_SUBSCRIPTION: '06211378-9352-421c-b3f4-ec8b44cf2c4b'
 stages:
 - stage: Deploy
   jobs:
