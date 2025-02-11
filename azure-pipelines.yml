@@ -10,7 +10,7 @@ parameters:
   default: 'demo'  # Default value if not provided
 
 variables:
-  SCRIPT_PATH: './account-nodered-deploy.sh'
+  SCRIPT_PATH: './deploy-azure.sh'
 
 stages:
 - stage: Deploy
