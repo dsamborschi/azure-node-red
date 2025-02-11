@@ -1,6 +1,7 @@
 name: Build and Push Node-red Docker Image to Docker Hub
 
-on: push
+on: 
+  workflow_dispatch:
 jobs:
   push_to_registry:
     name: push docker image to hub
